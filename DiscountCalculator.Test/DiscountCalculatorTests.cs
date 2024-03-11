@@ -28,13 +28,12 @@ namespace DiscountCalculator.Test
             // arrange
             string code = "SAVE10NOW";
             decimal price = 100;
-            decimal coefficient = 0.9M;
 
             // act
             decimal priceAfterDiscount = calculator.CalculateDiscount(price, code);
 
             // assert
-            priceAfterDiscount.Should().Be(price * coefficient);
+            priceAfterDiscount.Should().Be(90M);
 
         }
 
@@ -44,13 +43,12 @@ namespace DiscountCalculator.Test
             // arrange
             string code = "DISCOUNT20OFF";
             decimal price = 100;
-            decimal coefficient = 0.8M;
 
             // act
             decimal priceAfterDiscount = calculator.CalculateDiscount(price, code);
 
             // assert
-            priceAfterDiscount.Should().Be(price * coefficient);
+            priceAfterDiscount.Should().Be(80M);
 
         }
 
@@ -92,16 +90,14 @@ namespace DiscountCalculator.Test
             calculator.addFiftyOffCode(code);
 
             decimal price = 100;
-            decimal coefficient1 = 0.5M;
-            decimal coefficient2 = 1.0M;
 
             // act
             decimal priceAfterFirstDiscount = calculator.CalculateDiscount(price, code);
             decimal priceAfterSecondDiscount = calculator.CalculateDiscount(price, code);
 
             // assert
-            priceAfterFirstDiscount.Should().Be(price * coefficient1);
-            priceAfterSecondDiscount.Should().Be(price * coefficient2);
+            priceAfterFirstDiscount.Should().Be(50M);
+            priceAfterSecondDiscount.Should().Be(100M);
 
         }
     }
