@@ -53,5 +53,20 @@ namespace DiscountCalculator.Test
             priceAfterDiscount.Should().Be(price * coefficient);
 
         }
+
+        [TestMethod]
+        public void CalculateDiscount_should_throw_ArgumentException_when_price_is_negative()
+        {
+            // arrange
+            string code = "";
+            decimal price = -100;
+
+            // act
+            var f = () => calculator.CalculateDiscount(price, code);
+
+            // assert
+            f.Should().ThrowExactly<ArgumentException>().WithMessage("Negatives not allowed");
+            
+        }
     }
 }

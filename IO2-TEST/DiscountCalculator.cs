@@ -7,6 +7,9 @@
 
         public decimal CalculateDiscount(decimal price, string discountCode)
         {
+            if (price < 0)
+                throw new ArgumentException("Negatives not allowed");
+
             if (TenOffCodes.Contains(discountCode))
                 return price * 0.9M;
             if (TwentyOffCodes.Contains(discountCode))
