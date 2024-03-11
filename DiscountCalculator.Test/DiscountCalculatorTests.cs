@@ -37,5 +37,21 @@ namespace DiscountCalculator.Test
             priceAfterDiscount.Should().Be(price * coefficient);
 
         }
+
+        [TestMethod]
+        public void CalculateDiscount_should_return_price_lower_by_20precent_when_passed_code_DISCOUNT20OFF()
+        {
+            // arrange
+            string code = "DISCOUNT20OFF";
+            decimal price = 100;
+            decimal coefficient = 0.8M;
+
+            // act
+            decimal priceAfterDiscount = calculator.CalculateDiscount(price, code);
+
+            // assert
+            priceAfterDiscount.Should().Be(price * coefficient);
+
+        }
     }
 }
