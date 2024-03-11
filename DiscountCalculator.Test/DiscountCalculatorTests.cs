@@ -8,7 +8,7 @@ namespace DiscountCalculator.Test
         DiscountCalculator.Core.DiscountCalculator calculator = new();
 
         [TestMethod]
-        public void CalculateDiscount_should_not_discount_when_code_is_null()
+        public void CalculateDiscount_should_return_the_same_price_when_code_is_null()
         {
             // arrange
             string code = "";
@@ -81,6 +81,27 @@ namespace DiscountCalculator.Test
 
             // assert
             f.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");
+
+        }
+
+        [TestMethod]
+        public void CalculateDiscount_should_return_price_lower_by_50precent_when_used_for_the_first_time()
+        {
+            // arrange
+            string code = "50OFFCODE";
+            calculator.addFiftyOffCode(code);
+
+            decimal price = 100;
+            decimal coefficient1 = 0.5M;
+            decimal coefficient2 = 1.0M;
+
+            // act
+            decimal priceAfterFirstDiscount = calculator.CalculateDiscount(price, code);
+            decimal priceAfterSecondDiscount = calculator.CalculateDiscount(price, code);
+
+            // assert
+            priceAfterFirstDiscount.Should().Be(price * coefficient1);
+            priceAfterSecondDiscount.Should().Be(price * coefficient2);
 
         }
     }
