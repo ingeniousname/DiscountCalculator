@@ -68,5 +68,20 @@ namespace DiscountCalculator.Test
             f.Should().ThrowExactly<ArgumentException>().WithMessage("Negatives not allowed");
             
         }
+
+        [TestMethod]
+        public void CalculateDiscount_should_throw_ArgumentException_when_code_is_invalid()
+        {
+            // arrange
+            string code = "uieghesk";
+            decimal price = 100;
+
+            // act
+            var f = () => calculator.CalculateDiscount(price, code);
+
+            // assert
+            f.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");
+
+        }
     }
 }

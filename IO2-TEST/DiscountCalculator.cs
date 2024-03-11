@@ -10,11 +10,14 @@
             if (price < 0)
                 throw new ArgumentException("Negatives not allowed");
 
+            if (string.IsNullOrEmpty(discountCode))
+                return price;
+
             if (TenOffCodes.Contains(discountCode))
                 return price * 0.9M;
-            if (TwentyOffCodes.Contains(discountCode))
+            else if (TwentyOffCodes.Contains(discountCode))
                 return price * 0.8M;
-            return price;
-        }
+            else throw new ArgumentException("Invalid discount code");
+        }   
     }
 }
