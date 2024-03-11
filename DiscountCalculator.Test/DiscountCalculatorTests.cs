@@ -5,13 +5,14 @@ namespace DiscountCalculator.Test
     [TestClass]
     public class DiscountCalculatorTests
     {
-        DiscountCalculator.Core.DiscountCalculator calculator = new();
+        private readonly DiscountCalculator.Core.DiscountCalculator calculator = new();
 
         [TestMethod]
-        public void CalculateDiscount_should_return_the_same_price_when_code_is_null()
+        [DataRow("")]
+        [DataRow(null)]
+        public void CalculateDiscount_should_return_the_same_price_when_code_is_null_or_empty(string code)
         {
             // arrange
-            string code = "";
             decimal price = 100;
 
             // act
