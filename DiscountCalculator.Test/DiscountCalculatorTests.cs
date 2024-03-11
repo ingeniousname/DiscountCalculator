@@ -60,10 +60,10 @@ namespace DiscountCalculator.Test
             decimal price = -100;
 
             // act
-            var f = () => calculator.CalculateDiscount(price, code);
+            var invokeCalculateDiscount = () => calculator.CalculateDiscount(price, code);
 
             // assert
-            f.Should().ThrowExactly<ArgumentException>().WithMessage("Negatives not allowed");
+            invokeCalculateDiscount.Should().ThrowExactly<ArgumentException>().WithMessage("Negatives not allowed");
             
         }
 
@@ -75,15 +75,15 @@ namespace DiscountCalculator.Test
             decimal price = 100;
 
             // act
-            var f = () => calculator.CalculateDiscount(price, code);
+            var invokeCalculateDiscount = () => calculator.CalculateDiscount(price, code);
 
             // assert
-            f.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");
+            invokeCalculateDiscount.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");
 
         }
 
         [TestMethod]
-        public void CalculateDiscount_should_return_price_lower_by_50precent_when_used_for_the_first_time()
+        public void CalculateDiscount_should_return_price_lower_by_50precent_when_passed_fifty_off_code()
         {
             // arrange
             string code = "50OFFCODE";
@@ -93,11 +93,26 @@ namespace DiscountCalculator.Test
 
             // act
             decimal priceAfterFirstDiscount = calculator.CalculateDiscount(price, code);
-            var f = () => calculator.CalculateDiscount(price, code);
 
             // assert
             priceAfterFirstDiscount.Should().Be(50M);
-            f.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");  
+        }
+
+        [TestMethod]
+        public void CalculateDiscount_should_throw_ArgumentException_when_50_off_code_used_multiple_times()
+        {
+            // arrange
+            string code = "50OFFCODE";
+            calculator.addFiftyOffCode(code);
+
+            decimal price = 100;
+            decimal priceAfterFirstDiscount = calculator.CalculateDiscount(price, code);
+
+            // act
+            var invokeCalculateDiscount = () => calculator.CalculateDiscount(price, code);
+
+            // assert
+            invokeCalculateDiscount.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public class DiscountCalculator
     {
-        HashSet<string> TenOffCodes = new HashSet<string>() { "SAVE10NOW" };
-        HashSet<string> TwentyOffCodes = new HashSet<string>() { "DISCOUNT20OFF" };
-        HashSet<string> FiftyOffCodes = new HashSet<string>();
+        private readonly HashSet<string> TenOffCodes = new HashSet<string>() { "SAVE10NOW" };
+        private readonly HashSet<string> TwentyOffCodes = new HashSet<string>() { "DISCOUNT20OFF" };
+        private readonly HashSet<string> FiftyOffCodes = new HashSet<string>();
 
         public decimal CalculateDiscount(decimal price, string discountCode)
         {
