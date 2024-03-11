@@ -93,12 +93,11 @@ namespace DiscountCalculator.Test
 
             // act
             decimal priceAfterFirstDiscount = calculator.CalculateDiscount(price, code);
-            decimal priceAfterSecondDiscount = calculator.CalculateDiscount(price, code);
+            var f = () => calculator.CalculateDiscount(price, code);
 
             // assert
             priceAfterFirstDiscount.Should().Be(50M);
-            priceAfterSecondDiscount.Should().Be(100M);
-
+            f.Should().ThrowExactly<ArgumentException>().WithMessage("Invalid discount code");  
         }
     }
 }

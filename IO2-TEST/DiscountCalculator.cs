@@ -2,9 +2,9 @@
 {
     public class DiscountCalculator
     {
-        HashSet<string> TenOffCodes = new HashSet<string>() { "SAVE10NOW"};
+        HashSet<string> TenOffCodes = new HashSet<string>() { "SAVE10NOW" };
         HashSet<string> TwentyOffCodes = new HashSet<string>() { "DISCOUNT20OFF" };
-        Dictionary<string, bool> FiftyOffCodes = new Dictionary<string, bool>();
+        HashSet<string> FiftyOffCodes = new HashSet<string>();
 
         public decimal CalculateDiscount(decimal price, string discountCode)
         {
@@ -15,13 +15,10 @@
                 return price;
 
             decimal discountedPrice = price;
-            if(FiftyOffCodes.ContainsKey(discountCode))
+            if(FiftyOffCodes.Contains(discountCode))
             {
-                if (FiftyOffCodes[discountCode])
-                {
-                    FiftyOffCodes[discountCode] = false;
-                    discountedPrice *= 0.5M;
-                }
+                FiftyOffCodes.Remove(discountCode);
+                discountedPrice *= 0.5M;
             }
             else if (TenOffCodes.Contains(discountCode))
                 discountedPrice *= 0.9M;
@@ -34,7 +31,7 @@
 
         public void addFiftyOffCode(string fiftyOffCode) 
         {
-            FiftyOffCodes.Add(fiftyOffCode, true);
+            FiftyOffCodes.Add(fiftyOffCode);
         }
     }
 }
